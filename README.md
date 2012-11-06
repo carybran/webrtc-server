@@ -21,7 +21,7 @@ AUDIENCE="http://64.101.40.11:8000/" node app.js
 
 We are currently using the firefox trunk code from Nov. 6th, so update your mozilla-central to that revision like this:
 
-hg update -r 30b340a71112
+hg update -r ed13d73c61bb
 
 And build Nightly from that source.
 
