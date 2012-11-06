@@ -13,3 +13,15 @@ plantronicschat.js - has added websocket connection support to for the plantroni
 JSON is used as the format for the messages that are passed back and forth between the browser and client service
 
 
+Run "npm install" no pull down all of the required node.js libs.
+
+Set the AUDIENCE environment variable on startup to it's own URL, so start it like this:
+
+AUDIENCE="http://64.101.40.11:8000/" node app.js
+
+We are currently using the firefox trunk code from Nov. 6th, so update your mozilla-central to that revision like this:
+
+hg update -r 30b340a71112
+
+And build Nightly from that source.
+
