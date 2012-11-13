@@ -1,0 +1,51 @@
+ Windows WebRTC Expo 2012 Demo System Setup
+
+
+Windows:
+Github
+If you do not have a Github account - get one
+Install Github Windows Client - http://windows.github.com/
+Launch client and clone the following repositories from: https://github.com/carybran If you can't see the repositories email me your github userid.
+webrtc-server
+webrtc-client
+
+MS VDS2010:
+Install Microsoft Visual Developer Studio 2010
+
+Install the Plantronics SDK
+http://developer.plantronics.com/docs/DOC-1072
+
+Install node.js
+http://nodejs.org/ - download and install
+
+Follow the directions on https://developer.mozilla.org for setting up the firefox build enviroment
+Get the latest source code from mozilla
+update to the nightly version for this demo: hg update -r ed13d73c61bb
+Build the nightly as documented
+
+
+Mac:
+Github
+If you do not have a Github account - get one
+Install Github Mac Client - http://mac.github.com/
+Launch client and clone the following repositories from: https://github.com/carybran If you can't see the repositories email me your github userid.
+webrtc-server
+
+
+Follow the directions on https://developer.mozilla.org for setting up the firefox build enviroment
+Get the latest source code from mozilla
+update to the nightly version for this demo: hg update -r ed13d73c61bb
+Build the nightly as documented
+
+
+Configure Firefox:
+Type "about:config" in the navbar.
+Set the following properties to true
+media.navigator.enabled
+media.navigator.permission.desabled
+media.peerconnection.enabled
+
+
+
+
+
