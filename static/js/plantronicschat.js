@@ -203,7 +203,7 @@ function endCall() {
   document.getElementById("remotevideo").src = null;
   document.getElementById("remoteaudio").src = null;
   
-  disconnectHeadset();
+  
 
   peerc = null;
 }
@@ -312,7 +312,6 @@ function ringHeadset (startRinging, offer) {
     }
 }
 
-var isConnectedToHeadset = false;
 
 function connectToHeadset(){
 //todo make this dyamic to adjust to SSL
@@ -320,59 +319,20 @@ function connectToHeadset(){
 	plantronicsSocket = new WebSocket(uri);
 	plantronicsSocket.onopen = function (evt) {
 	    console.log("connected to Plantronics headset service");
-	    isConnectedToHeadset = true;
-	    //ringHeadset(true, offer);
 	};
 	plantronicsSocket.onclose = function (evt) {
-	    onClose(evt);
-	    isConnectedToHeadset = false;
+	    console.log("Plantronics headset service connection closed");
 	};
 	plantronicsSocket.onmessage = function (evt) {
 	    var pltMessage = JSON.parse(evt.data);
 	    processPLTMessage(pltMessage);
 	};
 	plantronicsSocket.onerror = function (evt) {
-	    onError(evt);
-	    isConnectedToHeadset = false;
+	    console.log("error connecting to headset service");
+	    plantronicsSocket = null;
 	};	
 }
 
-/*
-function connectToHeadset(offer) {
-	
-	//todo make this dyamic to adjust to SSL
-	var uri = 'ws://localhost:8888/plantronics';
-	plantronicsSocket = new WebSocket(uri);
-	plantronicsSocket.onopen = function (evt) {
-	    console.log("connected to Plantronics headset service");
-	    ringHeadset(true, offer);
-	};
-	plantronicsSocket.onclose = function (evt) {
-	    onClose(evt)
-	};
-	plantronicsSocket.onmessage = function (evt) {
-	    var pltMessage = JSON.parse(evt.data);
-	    processPLTMessage(pltMessage, offer);
-	};
-	plantronicsSocket.onerror = function (evt) {
-	    onError(evt)
-	};
- }
- */
- function disconnectHeadset(){
- 	 if(plantronicsSocket){
- 	 	 plantronicsSocket.close();
- 	 }
- }
-
-function onClose(evt) {
-	console.log("Plantronics headset service connection closed");
-}
-
-function onError(evt) {
-	console.log("error connecting to headset service");
-	plantronicsSocket = null;
-}
 
 function processPLTMessage(msg) {
 	//Process message from context server. If relevant to RTC server, call applicable methods.
@@ -384,8 +344,8 @@ function processPLTMessage(msg) {
 	    if (msg.id == EVENT_ACCEPT_CALL.id) {
 		console.log("Plantronics headset has accepted the call");
 		$("#incomingCall").modal("hide");
-		acceptCall(msg.payload.offer);
-		
+		//Assumes offer is being resent from the Headset service
+		acceptCall(msg.payload.offer);	
 	    }
 	    if (msg.id == EVENT_CALL_TERMINATE.id) {
 		console.log("Plantronics headset has terminated the call");
