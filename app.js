@@ -119,10 +119,10 @@ app.post("/login", function(req, res) {
     res.send(500, "Invalid login request");
     return;
   }
-
   verifyAssertion(req.body.assertion, audience, function(val) {
     if (val) {
-      req.session.regenerate(function() {
+    	console.log("callback for assertion success: val = " + val); 
+        req.session.regenerate(function() {
         req.session.user = val;
         notifyAllAbout(val);
         res.send(200);
@@ -163,6 +163,7 @@ function notifyAllAbout(user) {
 }
 
 function verifyAssertion(ast, aud, cb) {
+  //CAB - for the demo this call is logic is the only assertion that happens - so no assertion
   if (!process.env.ONLINE) {
     cb(ast);
     return;

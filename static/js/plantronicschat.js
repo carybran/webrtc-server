@@ -61,24 +61,34 @@ function log(info) {
 }
 
 function appendUser(user) {
-  var d = document.createElement("div");
-  d.setAttribute("id", btoa(user));
+	//check to see if the user is already in the list - if so no need to add
+	if(document.getElementById(btoa(user))){
+	   return;
+	}
+	//check to see if user is the already logged in user - if so no need to add
+	if(document.getElementById("user").innerHTML == user){
+	   return
+	}
+	
+	//add the user to the list
+	var d = document.createElement("div");
+	d.setAttribute("id", btoa(user));
 
-  var a = document.createElement("a");
-  a.setAttribute("class", "btn btn-block btn-inverse");
-  a.setAttribute("onclick", "initiateCall('" + user + "');");
-  a.innerHTML = "<i class='icon-user icon-white'></i> " + user;
+	var a = document.createElement("a");
+	a.setAttribute("class", "btn btn-block btn-inverse");
+	a.setAttribute("onclick", "initiateCall('" + user + "');");
+	a.innerHTML = "<i class='icon-user icon-white'></i> " + user;
 
-  d.appendChild(a);
-  d.appendChild(document.createElement("br"));
-  document.getElementById("users").appendChild(d);
+	d.appendChild(a);
+	d.appendChild(document.createElement("br"));
+	document.getElementById("users").appendChild(d);
 }
 
 function removeUser(user) {
-  var d = document.getElementById(btoa(user));
-  if (d) {
-    document.getElementById("users").removeChild(d);
-  }
+	var d = document.getElementById(btoa(user));
+	if (d) {
+	  document.getElementById("users").removeChild(d);
+        }
 }
 
 // TODO: refactor, this function is almost identical to initiateCall().
