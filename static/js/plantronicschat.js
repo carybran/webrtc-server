@@ -188,8 +188,20 @@ function initiateCall(user) {
   }, error);
 }
 
-function endCall() {
+//CAB - added param to determine if the end call came from a button
+// press or a headset event
+function endCall(fromHeadset) {
+	
   log("Ending call");
+ 
+  if(!fromHeadset){
+  	  //the call was not ended by a headset event - e.g. the user pressed a button
+     if(plantronicsSocket ){
+     	console.log("hanging up headset headset");
+	plantronicsSocket.send(JSON.stringify(COMMAND_HANGUP_HEADSET));     
+     }
+  	  
+  }
   document.getElementById("call").style.display = "none";
   document.getElementById("main").style.display = "block";
 
@@ -270,7 +282,8 @@ var COMMAND_STOP_RINGING_HEADSET = {
 
 var COMMAND_HANGUP_HEADSET = {
 	    type:"command",
-	    id:"0X000C"};
+	    id:"0X000C",
+            payload:{callId:1}};
 	    
 var COMMAND_MUTE_HEADSET = {
 	    type:"command",
@@ -348,8 +361,9 @@ function processPLTMessage(msg) {
 		acceptCall(msg.payload.offer);	
 	    }
 	    if (msg.id == EVENT_CALL_TERMINATE.id) {
-		console.log("Plantronics headset has terminated the call");
-		endCall();
+		console.log("Plantronics headset is no longer on the call");
+		endCall(true);
+		
 	    }
 	    else if (msg.id == EVENT_RING.id) {
 		console.log("Plantronics headset is ringing");
