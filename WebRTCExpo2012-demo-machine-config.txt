@@ -45,6 +45,8 @@ media.navigator.enabled
 media.navigator.permission.desabled
 media.peerconnection.enabled
 
+Install node.js
+http://nodejs.org/ - download and install
 
 
 
