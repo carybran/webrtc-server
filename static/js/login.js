@@ -27,7 +27,6 @@ function prereqs() {
 }
 
 function doLogin(ast) {
-  showLoader();
   jQuery.post(
     "login", {assertion: ast},
     function() { window.location.reload(); }
@@ -55,10 +54,6 @@ function showLogin() {
   var box = document.getElementById("login-box");
   if (box) {
     box.style.display = "block";
-  }
-  var loader = document.getElementById("loading");
-  if (loader) {
-    loader.style.display = "none";
   }
 }
 

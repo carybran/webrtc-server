@@ -5,9 +5,10 @@
     <meta charset="utf-8">
     <title>WebRTC Expo 2012 - Keynote Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A WebRTC Demo">
+    <meta name="description" content="Cool WebRTC Demo">
     <meta name="author" content="Anant Narayanan">
     <meta name="author" content="Cary Bran">
+    <meta name="author" content="Suhas Nandakumar">
     <link href="css/bootstrap.css" rel="stylesheet">
     <!-- For IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -16,47 +17,36 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          &nbsp;
-        </div>
-      </div>
-    </div>
-
     <div class="container">
-
-      <% if (message) { %>
-        <div class="alert alert-block alert-error">
-          <h4 class="alert-heading"><%= message %></h4>
-        </div>
-      <% } %>
-
-      <div class="hero-unit">
-        <h1>WebRTC Demo</h1>
-        <p>Simply Smarter Communications via Browsers!</p>
-        <div id="loading" style="display:none;">
-          <img src="img/loading.gif"/>
-        </div>
-        <div id="login-box" style="display:none;">
-          <p>
-            <% if (!offline) { %>
-              <a href="#" onclick="navigator.id.request();">
-                <img src="img/sign-in.png"/>
-              </a>
-            <% } else { %>
-              <div class="input-append">
-                <input class="span2" id="email"type="text">
-                <button class="btn" type="button"
-                onclick="doLogin(document.getElementById('email').value);">Sign in</button>
-              </div>
-            <% } %>
-          </p>
-        </div>
+      <!-- Clean up bg-top box model.. -->
+      <div class="bg-top">
+        <!-- Display Content with 2 grid layout -->
+        <div id="contentwindow" style="display:block">
+          <div class="row-fluid">
+            <div class="span6">
+              <img src="img/webrtc_circles_logo.png" alt="WebRTC" style = "display:block;height: 222px; width: 218px; padding-left: 35%;padding-top: 30%;"/>
+            </div><!--/span left-->
+            <div class="span6">
+              <div id="login-box" style ="display:none;">
+                <h1>Web<span class="muted">RTC</span></h1>
+                <p class="muted"> Simply Smarter Communications </p>
+                  <% if (!offline) { %>
+                    <a href="#" onclick="navigator.id.request();">
+                      <img src="img/sign-in.png"/>
+                      </a>
+                  <% } else { %>
+                  <div class="input-append">
+                    <input class="span4" id="email" type="text">
+                    <button class="btn" type="button"
+                    onclick="doLogin(document.getElementById('email').value);">Sign in</button>
+                  </div>
+                  <% } %>
+                </div>
+            </div> <!-- span right -->
+          </div> <!-- row-fluid -->
+         </div>
       </div>
-
-    </div>
+    </div> <!-- Container -->
 
     <script src="https://login.persona.org/include.js"></script>
 

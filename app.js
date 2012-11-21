@@ -12,6 +12,7 @@ app.use(express.session());
 app.use(express.static(__dirname + "/static"));
 
 app.get("/", function(req, res) {
+  console.log("App: Handling Default Request ");
   res.redirect("/login");
 });
 
@@ -121,7 +122,7 @@ app.post("/login", function(req, res) {
   }
   verifyAssertion(req.body.assertion, audience, function(val) {
     if (val) {
-    	console.log("callback for assertion success: val = " + val); 
+    	console.log("callback for assertion success: val = " + val);
         req.session.regenerate(function() {
         req.session.user = val;
         notifyAllAbout(val);

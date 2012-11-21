@@ -6,7 +6,7 @@
     <title>WebRTC Expo 2012 - Keynote Demo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A WebRTC Demo">
-    <meta name="author" content="Anant Narayanan">
+    <meta name="author" content="Suhas Nandakumar">
     <meta name="author" content="Cary Bran">
     <link href="css/bootstrap.css" rel="stylesheet">
     <!-- For IE6-8 support of HTML5 elements -->
@@ -16,28 +16,39 @@
   </head>
 
   <body>
-
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          &nbsp;
+    <div id="main" class="container">
+      <!-- TODO: Clean up bg-top box model -->
+      <div class="bg-top">
+        <div id="videowindow" style="display:none">
+          <video id="remotevideo" class="remote" src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"'  />
+          </video>
+         <video id="localvideo" class="local" src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"'/>
+         </video>
+         <audio id="remoteaudio"></audio>
+         <audio id="localaudio" muted></audio>
+         <button class="btn btn-mini btn-danger" type="button" style="width=40%;" onclick="endCall();">End Call</button>
+        </div>
+        <div id="contentwindow" style="display:block">
+          <div class="row-fluid">
+            <div class="span6">
+              <div id="login-box1" style = "display:block;">
+                <h1>Welcome Back !</h1>
+                <span class = "muted" id="user"><%= user %></span>
+              </div>
+            </div><!--/span-->
+            <div class="span6">
+              <div id="contact-list" style ="display:block;">
+                <table class="table" id="contactlist">
+                <tbody>
+                </tbody>
+                </table>
+              </div> <!-- contact-list -->
+            </div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="main" class="container">
-
-      <div class="span4">
-        <h3>Welcome <span id="user"><%= user %></span>!</h3>
-        <p>Click on any online user to initiate a chat.</p>
-      </div>
-
-      <br/>
-
-      <div class="span2 well" id="users">
-      </div>
-
-      <div class="modal" id="incomingCall" tabindex="-1" role="dialog"
+     <div class="modal" id="incomingCall" tabindex="-1" role="dialog"
            aria-labelledby="incomingCall" aria-hidden="true">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -54,34 +65,8 @@
         </div>
       </div>
 
-    </div>
+    </div> <!-- container -->
 
-    <div id="call" class="container" style="display: none;">
-      <span id="dialing">
-        <img src="img/loading.gif"/>
-        <b>Dialing...</b>
-      </span>
-      <span id="hangup" style="display: none;">
-        <a class="btn btn-danger" onclick="endCall(false);">Hang Up</a>
-      </span>
-      <span>
-        <h3>Remote</h3>
-        <video width="640" height="480" id="remotevideo" controls/>
-        <audio id="remoteaudio"/>
-      </span>
-      <span>
-        <h3>Local</h3>
-        <video width="320" height="240" id="localvideo" controls/>
-        <audio id="localaudio" muted/>
-      </span>
-    </div>
-
-    <div class="container">
-      <button type="button" class="btn btn-warning" data-toggle="collapse"
-        data-target="#debug">Hide Debug</button>
-      <br/>
-      <pre id="debug" class="collapse in"></pre>
-    </div>
 
     <script src="https://login.persona.org/include.js"></script>
 
