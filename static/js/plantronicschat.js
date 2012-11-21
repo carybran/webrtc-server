@@ -246,33 +246,25 @@ function error(e) {
 }
 
 //Plantronics functions
+
+//Settings requests that get sent to the device
 var SETTING_DEVICE_INFO = {
 		    type:"setting",
 		    id:"0X0F02"};
+		    
+var SETTING_USERNAME = {
+		    type:"setting",
+		    id:"0X0F03"};
 
-var EVENT_RING ={
-	    type:"event",
-	    id:"0X0E0F"};
-
+		    
+//Events that get generated from the device
 var EVENT_ACCEPT_CALL ={
 	    type:"event",
 	    id:"0X0E0C"};
 
-var EVENT_RING_TERMINATE ={
-	     type:"event",
-	     id:"0X0E0D"};
-
-var EVENT_RINGING ={
-	    type:"event",
-	    id:"0X0E10"};
-
 var EVENT_CALL_TERMINATE ={
 	    type:"event",
 	    id:"0X0E11"};
-
-var EVENT_MUTE ={
-	    type:"event",
-	    id:"0X0E02"};
 
 var EVENT_BUTTON_PRESS = {
 	    type:"event",
@@ -281,11 +273,12 @@ var EVENT_BUTTON_PRESS = {
 var EVENT_WEAR_STATE_CHANGED = {
 	    type:"event",
 	    id:"0X0200"};
-
+	    
 var EVENT_PROXIMITY = {
 	    type:"event",
-	    id:"0X0200"};
-
+	    id:"0X0100"};
+	    
+//Commands that get sent to the device
 var COMMAND_RING_HEADSET = {
 	    type:"command",
 	    id:"0X0D08",
@@ -308,6 +301,7 @@ var COMMAND_MUTE_HEADSET = {
 var COMMAND_UNMUTE_HEADSET = {
 	    type:"command",
 	    id:"0X0D0B"};
+	    
 
 var plantronicsSocket = null;
 
@@ -376,20 +370,10 @@ function processPLTMessage(msg) {
 		//Assumes offer is being resent from the Headset service
 		acceptCall(msg.payload.offer);
 	    }
-	    if (msg.id == EVENT_CALL_TERMINATE.id) {
+	    else if (msg.id == EVENT_CALL_TERMINATE.id) {
 		console.log("Plantronics headset is no longer on the call");
 		endCall(true);
 
-	    }
-	    else if (msg.id == EVENT_RING.id) {
-		console.log("Plantronics headset is ringing");
-	    }
-	    else if (msg.id == EVENT_RING_TERMINATE.id) {
-		console.log("Plantronics headset is answering the call");
-		//TODO - fill me in with the right action
-	    }
-	    else if (msg.id == EVENT_MUTE.id) {
-		console.log("Plantronics headset is muted");
 	    }
 	    else if(msg.id == EVENT_BUTTON_PRESS.id){
 		console.log("Plantronics headset button pressed" +  msg.payload.buttonName);
