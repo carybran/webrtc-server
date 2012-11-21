@@ -35,7 +35,6 @@ source.addEventListener("offer", function(e) {
   var offer = JSON.parse(e.data);
   //TODO - CAB is this the right spot?
   //ringHeadset(true, offer);
-  alert("Got Offer From:" + offer.from);
   document.getElementById("incomingUser").innerHTML = offer.from;
   document.getElementById("incomingAccept").onclick = function() {
     $("#incomingCall").modal("hide");
@@ -51,7 +50,6 @@ source.addEventListener("offer", function(e) {
 
 source.addEventListener("answer", function(e) {
   var answer = JSON.parse(e.data);
-  alert("Got Answer "+ answer);
   peerc.setRemoteDescription(JSON.parse(answer.answer), function() {
     console.log("Call established!");
   }, error);
@@ -86,7 +84,6 @@ function appendUser(user) {
   tds += '\'' + user + '\'';
   tds += ')\";> Call </button></td>';
   tds += '</tr>';
-  //alert(tds);
   $table.append(tds);
 }
 
@@ -108,7 +105,6 @@ function removeUser(user) {
 // TODO: refactor, this function is almost identical to initiateCall().
 function acceptCall(offer) {
   log("Incoming call with offer " + offer.from);
-  alert("Offer :"+ JSON.stringify(offer.offer));
   document.getElementById("contentwindow").style.display = "none";
   document.getElementById("videowindow").style.display = "block";
 
@@ -191,7 +187,6 @@ function initiateCall(user) {
 
       pc.createOffer(function(offer) {
         log("Created offer" + JSON.stringify(offer));
-        alert("Crated offer "+ JSON.stringify(offer));
         pc.setLocalDescription(offer, function() {
           // Send offer to remote end.
           log("setLocalDescription, sending to remote");
