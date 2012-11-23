@@ -134,6 +134,31 @@ app.post("/login", function(req, res) {
   });
 });
 
+app.post("/endSession", function(req,res) {
+  console.log("App:Handled End Session ");
+  if (!req.session.user) {
+    res.send(401, "Unauthorized, endSession access denied");
+    return;
+  }
+
+  if (!req.body.to || !req.body.from) {
+    res.send(400, "Invalid endSession request");
+    return;
+  }
+
+  var channel = users[req.body.to];
+  if (!channel) {
+    res.send(400, "Invalid user for endSession");
+    return;
+  }
+
+  channel.write("event: endSession\n");
+  channel.write("data: " + JSON.stringify(req.body));
+  channel.write("\n\n");
+
+  res.send(200);
+});
+
 app.post("/logout", function(req, res) {
   req.session.destroy(function(){
     res.send(200);

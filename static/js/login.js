@@ -9,6 +9,13 @@ function prereqs() {
     return;
   }
 
+//CAB additions
+// We depend on a global here.
+//TODO: Implement headset code as object than globals
+$(document).ready(function(){
+  connectToHeadset();
+});
+
   // All pre-requisites available! TODO: Provide loggedInEmail param.
   if (navigator.id) {
     navigator.id.watch({
@@ -55,6 +62,9 @@ function showLogin() {
   if (box) {
     box.style.display = "block";
   }
+
+  //check to see if we are connected to the headset
+  queryHeadsetOwner();
 }
 
 prereqs();

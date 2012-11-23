@@ -19,21 +19,26 @@
     <div id="main" class="container">
       <!-- TODO: Clean up bg-top box model -->
       <div class="bg-top">
+        <!-- video data -->
         <div id="videowindow" style="display:none">
-          <video id="remotevideo" class="remote" src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"'  />
-          </video>
-         <video id="localvideo" class="local" src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"'/>
-         </video>
-         <audio id="remoteaudio"></audio>
-         <audio id="localaudio" muted></audio>
-         <button class="btn btn-mini btn-danger" type="button" style="width=40%;" onclick="endCall();">End Call</button>
+          <div class="row-fluid" id="media">
+            <div class="span12">
+              <video id="remotevideo" class="remote" src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"'  />
+              </video>
+              <video id="localvideo" class="local" src="http://www.html5rocks.com/en/tutorials/video/basics/Chrome_ImF.webm" type='video/webm; codecs="vp8, vorbis"'/>
+              </video>
+             <audio id="remoteaudio"></audio>
+             <audio id="localaudio" muted></audio>
+             <button class="btn btn-larger btn-danger" type="button" style="width=80%;" onclick="endCall();">End Call</button>
+            </div>
+          </div><!-- video block -->
         </div>
         <div id="contentwindow" style="display:block">
-          <div class="row-fluid">
+          <div class="row-fluid" id="content">
             <div class="span6">
               <div id="login-box1" style = "display:block;">
                 <h1>Welcome Back !</h1>
-                <span class = "muted" id="user"><%= user %></span>
+                <h4><span class = "muted" id="user"><%= user %></span></h4>
               </div>
             </div><!--/span-->
             <div class="span6">
@@ -42,11 +47,11 @@
                 <tbody>
                 </tbody>
                 </table>
-              </div> <!-- contact-list -->
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> <!-- Content Block -->
+        </div> <!-- Content Window -->
+      </div> <!-- bg-top-->
 
      <div class="modal" id="incomingCall" tabindex="-1" role="dialog"
            aria-labelledby="incomingCall" aria-hidden="true">
@@ -72,6 +77,7 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src ="js/headset.js"></script>
     <script src="js/plantronicschat.js"></script>
   </body>
 </html>
