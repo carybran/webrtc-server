@@ -189,47 +189,6 @@ function notifyAllAbout(user) {
 }
 
 function verifyAssertion(ast, aud, cb) {
-  //CAB - for the demo this call is logic is the only assertion that happens - so no assertion
-  if (!process.env.ONLINE) {
     cb(ast);
     return;
-  }
-
-  var data = "audience=" + encodeURIComponent(aud);
-  data += "&assertion=" + encodeURIComponent(ast);
-
-  var options = {
-    host: "verifier.login.persona.org",
-    path: "/verify",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Content-Length": data.length
-    }
-  };
-
-  var req = https.request(options, function(res) {
-    var ret = "";
-    res.on("data", function(chunk) {
-      ret += chunk;
-    });
-    res.on("end", function() {
-      try {
-        var val = JSON.parse(ret);
-      } catch(e) {
-        cb(false);
-        return;
-      }
-      if (val.status == "okay") {
-        cb(val.email);
-      } else {
-        console.log(data);
-        console.log(val);
-        cb(false);
-      }
-    });
-  });
-
-  req.write(data);
-  req.end();
 }
