@@ -115,6 +115,25 @@ app.post("/answer", function(req, res) {
   res.send(200);
 });
 
+app.post("/wearstate", function(req, res){
+		
+  //console.log("wearstate: body = " + JSON.stringify(req.body));
+      	
+  if(!req.body.wearstate || !req.body.user){
+  	  return;
+  }
+  
+  var keys = Object.keys(users);
+  for (var i = 0; i < keys.length; i++) {
+    var channel = users[keys[i]];
+    channel.write("event: wearstate\n");
+    channel.write("data: " + JSON.stringify(req.body));
+    channel.write("\n\n");
+  }
+  res.send(200);
+		
+});
+
 app.post("/login", function(req, res) {
   if (!req.body.assertion) {
     res.send(500, "Invalid login request");
@@ -122,7 +141,6 @@ app.post("/login", function(req, res) {
   }
   verifyAssertion(req.body.assertion, audience, function(val) {
     if (val) {
-    	console.log("callback for assertion success: val = " + val);
         req.session.regenerate(function() {
         req.session.user = val;
         notifyAllAbout(val);

@@ -23,6 +23,18 @@ $("#incomingCall").on("hidden", function() {
 
 source.addEventListener("ping", function(e) {}, false);
 
+source.addEventListener("wearstate", function(e) {
+  var status = JSON.parse(e.data);
+	
+  //console.log("status user = " + status.user + " wearstate = " + status.wearstate);
+  //check to see if the user is already in the list - if so no need to add
+  if(!document.getElementById(status.user + "_status")){
+   return;
+  }
+
+  document.getElementById(status.user + "_status").innerHTML = status.wearstate;	
+}, false);
+
 source.addEventListener("userjoined", function(e) {
   appendUser(e.data);
 }, false);
@@ -71,9 +83,10 @@ function log(info) {
   //d.innerHTML += info + "\n\n";
 }
 
+
 function appendUser(user) {
 	//check to see if the user is already in the list - if so no need to add
-	if(document.getElementById(btoa(user))){
+	if(document.getElementById(btoa(user) + "_1")){
 	   return;
 	}
 	//check to see if user is the already logged in user - if so no need to add
@@ -86,7 +99,7 @@ function appendUser(user) {
   var userId = btoa(user);
   var tds = '<tr id= \"' + userId + '_1\">';
   tds += '<td rowspan=\"2\"><img src=\"img/thumb.png\"></td>';
-  tds += '<td> '+user+'<span class=\"available\">'+" - Available"+ '</span></td>';
+  tds += '<td> '+user+'<span class=\"available\" id=\"'+ user +'_status\">'+" - Available"+ '</span></td>';
   tds += '</tr>';
   $table.append(tds);
   tds = '<tr id= \"' + userId + '_2\">';

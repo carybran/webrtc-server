@@ -87,12 +87,15 @@ function ringHeadset (startRinging, offer) {
   }
 }
 
-function connectToHeadset(){
+function connectToHeadset(onOpenFcn){
 //todo make this dyamic to adjust to SSL
 	var uri = 'ws://localhost:8888/plantronics';
 	plantronicsSocket = new WebSocket(uri);
 	plantronicsSocket.onopen = function (evt) {
 	    console.log("connected to Plantronics headset service");
+	    if(onOpenFcn){
+	    	    onOpenFcn();
+	    }
 	};
 	plantronicsSocket.onclose = function (evt) {
 	    console.log("Plantronics headset service connection closed");
@@ -138,11 +141,17 @@ function processPLTMessage(msg) {
 	    } else if(msg.id == EVENT_BUTTON_PRESS.id) {
 		      console.log("Plantronics headset button pressed" +  msg.payload.buttonName);
 	    } else if(msg.id == EVENT_WEAR_STATE_CHANGED.id){
-		      if(msg.payload.worn == "true") {
+	    	      var status = "";
+	    	      if(msg.payload.worn == "true") {
 		        console.log("Plantronics headset worn");
+		        status = " - Available (Headset On)";
 		      } else {
 		        console.log("Plantronics headset not worn");
+		        status = " - Available (Headset Off)"
 		      }
+		      console.log("sending wearstate update");
+		      jQuery.post("wearstate", {wearstate: status, user: document.getElementById("user").innerHTML});
+
 	    } else if(msg.id ==  EVENT_PROXIMITY.id) {
 	    	  if(msg.payload.proximity == "near") {
 		        console.log("Plantronics headset is near");
