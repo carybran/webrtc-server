@@ -98,7 +98,7 @@ function appendUser(user) {
   var $table = $('#contactlist');
   var userId = btoa(user);
   var tds = '<tr id= \"' + userId + '_1\">';
-  tds += '<td rowspan=\"2\"><img src=\"img/thumb.png\"></td>';
+  tds += '<td rowspan=\"2\"><img src=\"img/' + userId.toLowerCase() + '.png\"></td>';
   tds += '<td> '+user+'<span class=\"available\" id=\"'+ user +'_status\">'+" - Available"+ '</span></td>';
   tds += '</tr>';
   $table.append(tds);
