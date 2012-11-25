@@ -16,11 +16,7 @@ $(document).ready(function(){connectToHeadset();});
 
 $("#incomingCall").modal();
 $("#incomingCall").modal("hide");
-
-$("#incomingCall").on("hidden", function() {
-  document.getElementById("incomingRing").pause();
-});
-
+ 
 source.addEventListener("ping", function(e) {}, false);
 
 source.addEventListener("wearstate", function(e) {

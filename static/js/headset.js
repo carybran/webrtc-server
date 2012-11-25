@@ -134,9 +134,9 @@ function processPLTMessage(msg) {
 	    } else if (msg.id == EVENT_CALL_TERMINATE.id) {
 		      console.log("Plantronics headset is no longer on the call");
 		      var params = {
-            fromHeadset: true,
-            remoteTerm : true
-          };
+                          fromHeadset: true,
+                          remoteTerm : true
+                          };
 		      endCall(params);
 	    } else if(msg.id == EVENT_BUTTON_PRESS.id) {
 		      console.log("Plantronics headset button pressed" +  msg.payload.buttonName);
