@@ -47,6 +47,7 @@ source.addEventListener("offer", function(e) {
   var offer = JSON.parse(e.data);
   //TODO - CAB is this the right spot?
   ringHeadset(true, offer);
+  document.getElementById("incomingPic").src = "img/" + offer.from.toLowerCase() + ".png";
   document.getElementById("incomingUser").innerHTML = offer.from;
   document.getElementById("incomingAccept").onclick = function() {
     $("#incomingCall").modal("hide");
@@ -98,7 +99,7 @@ function appendUser(user) {
   var $table = $('#contactlist');
   var userId = btoa(user);
   var tds = '<tr id= \"' + userId + '_1\">';
-  tds += '<td rowspan=\"2\"><img src=\"img/' + userId.toLowerCase() + '.png\"></td>';
+  tds += '<td rowspan=\"2\"><img src=\"img/' + user.toLowerCase() + '.png\"></td>';
   tds += '<td> '+user+'<span class=\"available\" id=\"'+ user +'_status\">'+" - Available"+ '</span></td>';
   tds += '</tr>';
   $table.append(tds);
