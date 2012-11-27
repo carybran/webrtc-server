@@ -57,6 +57,7 @@ var COMMAND_UNMUTE_HEADSET = {
 
 //one more global .. sorry BOM
 plantronicsSocket = null;
+plantronicsHeadset = null;
 
 function muteHeadset (isMuted) {
   if(!plantronicsSocket){
@@ -96,6 +97,7 @@ function connectToHeadset(onOpenFcn){
 	    if(onOpenFcn){
 	    	    onOpenFcn();
 	    }
+	    queryHeadsetSettings();
 	};
 	plantronicsSocket.onclose = function (evt) {
 	    console.log("Plantronics headset service connection closed");
@@ -108,6 +110,18 @@ function connectToHeadset(onOpenFcn){
 	    console.log("error connecting to headset service");
 	    plantronicsSocket = null;
 	};
+}
+
+function getPlantronicsHeadset(){
+	return plantronicsHeadset;	
+}
+
+function queryHeadsetSettings(){
+  if(plantronicsSocket == null){
+    return;
+  }
+  plantronicsSocket.send(JSON.stringify(SETTING_DEVICE_INFO));
+  
 }
 
 function queryHeadsetOwner() {
@@ -123,7 +137,10 @@ function processPLTMessage(msg) {
 	if ("setting" == messageType) {
 	    console.log("Plantronics device settings received");
 	    if(msg.id == SETTING_USERNAME.id) {
-        document.getElementById('username').value = msg.payload.username;
+              document.getElementById('username').value = msg.payload.username;
+	    }
+	    else if(msg.id == SETTING_DEVICE_INFO.id){
+	      plantronicsHeadset = msg.payload.device;
 	    }
 	} else if ("event" == messageType) {
 	    if (msg.id == EVENT_ACCEPT_CALL.id) {

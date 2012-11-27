@@ -10,6 +10,7 @@ var peerc;
 var source = new EventSource("events");
 var peerUser;
 
+
 //CAB additions
 $(document).ready(function(){connectToHeadset();});
 
@@ -144,14 +145,20 @@ function acceptCall(offer) {
       pc.addStream(as);
 
       pc.onaddstream = function(obj) {
-        log("Got onaddstream of type " + obj.type);
         if (obj.type == "video") {
           document.getElementById("remotevideo").mozSrcObject = obj.stream;
           document.getElementById("remotevideo").play();
         } else {
 
-          //TODO - query for the headset and then set the number of channels and bitrate
-          document.getElementById("remoteaudio").mozSetup(1,16000);
+          var device = getPlantronicsHeadset();
+          console.log("device = " + device);
+          if(device){
+          	  document.getElementById("remoteaudio").mozSetup(device.numberOfChannels,device.sampleRate);
+          
+          }
+          else{
+          	  document.getElementById("remoteaudio").mozSetup(1,16000);
+          }
 
           document.getElementById("remoteaudio").mozSrcObject = obj.stream;
           document.getElementById("remoteaudio").play();
